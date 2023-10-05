@@ -50,6 +50,11 @@ install_pkg() {
       curl -# -Lo "${TMPDIR}/${1}${PKGEXT}" "${MIRROR_URL}/${repo}/os/$ARCH/${1}${PKGEXT}"
       if [ $? -eq 0 ]; then
           break
+      elif [ $retry -lt $max_retries ]; then
+          echo "Retrying..."
+      else
+          echo "Maximum retries exceeded."
+          exit 1
       fi
   done
   (cd /; $SUDO tar --warning=none -xf "${TMPDIR}/${1}${PKGEXT}" usr/local)
