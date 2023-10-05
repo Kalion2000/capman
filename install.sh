@@ -73,6 +73,7 @@ build_pkg() {
 }
 
 echo -e "\e[33m"
+echo 'Brought to to you by Henry Zhao.'
 echo 'From here on things will mostly be done as `root`, enter'
 echo 'your `sudo` password if prompted.'
 echo -e "\e[0m"
