@@ -42,21 +42,7 @@ msg2() {
 install_pkg() {
   local repo="${2:-core}"
   msg2 "%s" "$1"
-  retry=0
-  max_retries=3
-  while [ $retry -lt $max_retries ]; do
-      retry=$((retry + 1))
-      echo "Attempt $retry"
-      curl -# -Lo "${TMPDIR}/${1}${PKGEXT}" "${MIRROR_URL}/${repo}/os/$ARCH/${1}${PKGEXT}"
-      if [ $? -eq 0 ]; then
-          break
-      elif [ $retry -lt $max_retries ]; then
-          echo "Retrying..."
-      else
-          echo "Maximum retries exceeded."
-          exit 1
-      fi
-  done
+  curl -# -Lo "${TMPDIR}/${1}${PKGEXT}" "${MIRROR_URL}/${repo}/os/$ARCH/${1}${PKGEXT}"
   (cd /; $SUDO tar --warning=none -xf "${TMPDIR}/${1}${PKGEXT}" usr/local)
 }
 
