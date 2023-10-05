@@ -42,7 +42,7 @@ msg2() {
 install_pkg() {
   local repo="${2:-core}"
   msg2 "%s" "$1"
-  curl --progress-bar -Lo "${TMPDIR}/${1}${PKGEXT}" "${MIRROR_URL}/${repo}/os/$ARCH/${1}${PKGEXT}"
+  curl -Lo "${TMPDIR}/${1}${PKGEXT}" "${MIRROR_URL}/${repo}/os/$ARCH/${1}${PKGEXT}"
   (cd /; $SUDO tar --warning=none -xf "${TMPDIR}/${1}${PKGEXT}" usr/local)
 }
 
